@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import axios from 'axios';
+import moment from 'moment';
 
 class SavedPage extends Component {
     state={
@@ -31,7 +32,7 @@ class SavedPage extends Component {
                     {this.state.articles.map((result,i)=>
                         <ListGroupItem id={result._id} className="text-center">
                             <h2>{result.title}</h2>
-                            <p>{result.date}</p>
+                            <p>{new moment(result.date).format("MMMM Do YYYY")}</p>
                             <a href={result.url}>Link to Article</a><br />
                             <Button
                                 color="dark" 

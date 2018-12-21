@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
+import moment from 'moment';
 
 class SearchResult extends Component {
     render() {
@@ -10,7 +11,7 @@ class SearchResult extends Component {
                     {this.props.results.map((result,i)=>
                         <ListGroupItem className="text-center">
                             <h2>{result.headline.main}</h2>
-                            <p>{result.pub_date}</p>
+                            <p>{new moment(result.pub_date).format("MMMM Do YYYY")}</p>
                             <a href={result.web_url}>Link to Article</a><br />
                             <Button
                                 color="dark" 
