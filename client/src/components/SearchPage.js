@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchForm from './SearchForm';
-import SearchResults from './SearchResults';
+import SearchResult from './SearchResult';
 import { Container } from 'reactstrap';
 import axios from 'axios';
 
@@ -34,11 +34,25 @@ class SearchPage extends Component {
         
     }
 
+    handleSave = (i) =>{
+        let result=this.state.results[i];
+        console.log(result);
+        let saveObj = {
+            title: result.headline.main,
+            date: result.pub_date,
+            url: result.web_url
+        }
+        console.log(saveObj);
+        axios
+            .post("/api/saved", saveObj)
+            .then(res=>console.log(res));
+    }
+
     render() {
         return (
             <Container>
                 <SearchForm search={this.handleSearch} />
-                <SearchResults />
+                <SearchResult results={this.state.results} saveArticle={this.handleSave} />
             </Container>
 
 
