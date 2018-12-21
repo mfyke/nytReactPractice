@@ -8,7 +8,9 @@ const db = require("../../models/index");
 // article routes
 // get all saved articles
 router.get("/api/saved", (req,res)=>{
-
+    db.Article.find()
+        .sort({date: -1})
+        .then(articles => res.json(articles));
 });
 // save an article
 router.post("/api/saved", (req,res)=>{
