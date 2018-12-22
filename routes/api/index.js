@@ -41,7 +41,9 @@ router.post("/api/notes/article/:id", (req,res)=>{
 
 // delete a note
 router.delete("/api/notes/:id", (req,res)=>{
-
+    db.Note.deleteOne({_id: req.params.id}, (err, data)=>{
+        res.json(data);
+    });
 });
 
 

@@ -8,10 +8,6 @@ class NoteModal extends Component {
         newNote: ''
     }
 
-    deleteNote = (id) => {
-        console.log(id);
-    }
-
     onChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -44,7 +40,7 @@ class NoteModal extends Component {
                             <h2>{note.body}</h2>
                             <Button
                                 color="dark" 
-                                onClick={()=>this.deleteNote(note._id)}
+                                onClick={()=>this.props.deleteNote(note._id)}
                             > 
                             Delete Note</Button>
                         </ListGroupItem>

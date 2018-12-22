@@ -51,19 +51,27 @@ class SavedPage extends Component {
     }
 
     handleAddNote = (note) => {
-        let comp = this;
         axios
             .post(`/api/notes/article/${note.article}`, note)
-            .then(res=>comp.setState({
+            .then(res=>this.setState({
                 ...this.state,
                 notes: [...this.state.notes, res.data ]
+            }));
+    }
+
+    handleDeleteNote = (id) => {
+        axios
+            .delete(`/api/notes/${id}`)
+            .then(data=>this.setState({
+                ...this.state,
+                notes: this.state.notes.filter(note=>note._id!==id)
             }));
     }
 
     render() {
         return (
             <Container>
-                <NoteModal addNote={this.handleAddNote} active={this.state.activeID} currentNotes={this.state.notes} open={this.state.modal} toggle={this.toggleModal} />
+                <NoteModal deleteNote={this.handleDeleteNote} addNote={this.handleAddNote} active={this.state.activeID} currentNotes={this.state.notes} open={this.state.modal} toggle={this.toggleModal} />
                 <ListGroup className="resultsBox">
                     {this.state.articles.map((result,i)=>
                         <ListGroupItem onClick={()=>this.setActive(result._id)} className="text-center">
