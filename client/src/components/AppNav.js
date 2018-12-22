@@ -34,7 +34,7 @@ class AppNav extends Component {
                                     <NavLink href="/saved">Saved Articles</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink href="https://github.com/mfyke">Github</NavLink>
+                                    <NavLink href="https://github.com/mfyke/nytReactPractice">Github</NavLink>
                                 </NavItem>
                             </Nav>
                         </Collapse>

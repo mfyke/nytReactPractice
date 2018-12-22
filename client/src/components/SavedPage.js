@@ -74,8 +74,8 @@ class SavedPage extends Component {
                 <NoteModal deleteNote={this.handleDeleteNote} addNote={this.handleAddNote} active={this.state.activeID} currentNotes={this.state.notes} open={this.state.modal} toggle={this.toggleModal} />
                 <ListGroup className="resultsBox">
                     {this.state.articles.map((result,i)=>
-                        <ListGroupItem onClick={()=>this.setActive(result._id)} className="text-center">
-                            <h2>{result.title}</h2>
+                        <ListGroupItem className="text-center">
+                            <h2 onClick={()=>this.setActive(result._id)}>{result.title}</h2>
                             <p>{new moment(result.date).format("MMMM Do YYYY")}</p>
                             <a href={result.url}>Link to Article</a><br />
                             <Button
