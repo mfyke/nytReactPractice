@@ -20,7 +20,6 @@ router.post("/api/saved", (req,res)=>{
 });
 // delete an article from saved
 router.delete("/api/saved/:id", (req,res)=>{
-    console.log(req.params.id);
     db.Article.deleteOne({_id: req.params.id}, (err, data)=>{
         res.json(data);
     });
@@ -29,11 +28,15 @@ router.delete("/api/saved/:id", (req,res)=>{
 // note routes
 // get notes associated with an article
 router.get("/api/notes/article/:id", (req,res)=>{
-    
+    db.Note.find({article: req.params.id}, (error,data) => {
+        res.json(data);
+    });
 });
 // post a note associated with the current article
 router.post("/api/notes/article/:id", (req,res)=>{
-
+    db.Note.create({body: req.body.body, article: req.params.id}, (err, data)=>{
+        res.json(data);
+    });
 });
 
 // delete a note

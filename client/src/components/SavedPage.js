@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import axios from 'axios';
 import moment from 'moment';
+import NoteModal from './NoteModal';
 
 class SavedPage extends Component {
     state={
-        articles: []
+        articles: [],
+        modal: false,
+        activeID: "",
+        notes: []
     }
 
     componentWillMount() {
@@ -25,12 +29,44 @@ class SavedPage extends Component {
             }));
     }
 
+    toggleModal = () =>{
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
+    setActive = (id) => {
+        this.setState({
+            activeID: id
+        }, ()=>{
+            axios
+                .get(`/api/notes/article/${this.state.activeID}`)
+                .then(data=>this.setState({
+                    notes: data.data
+                },()=>{
+                    this.toggleModal()
+                }));
+            
+        });
+    }
+
+    handleAddNote = (note) => {
+        let comp = this;
+        axios
+            .post(`/api/notes/article/${note.article}`, note)
+            .then(res=>comp.setState({
+                ...this.state,
+                notes: [...this.state.notes, res.data ]
+            }));
+    }
+
     render() {
         return (
             <Container>
+                <NoteModal addNote={this.handleAddNote} active={this.state.activeID} currentNotes={this.state.notes} open={this.state.modal} toggle={this.toggleModal} />
                 <ListGroup className="resultsBox">
                     {this.state.articles.map((result,i)=>
-                        <ListGroupItem id={result._id} className="text-center">
+                        <ListGroupItem onClick={()=>this.setActive(result._id)} className="text-center">
                             <h2>{result.title}</h2>
                             <p>{new moment(result.date).format("MMMM Do YYYY")}</p>
                             <a href={result.url}>Link to Article</a><br />
