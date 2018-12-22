@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Container } from 'reactstrap';
 import AppNav from './components/AppNav';
 import SearchPage from './components/SearchPage';
 import SavedPage from './components/SavedPage';
